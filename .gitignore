@@ -1,6 +1,9 @@
 
 # Created by https://www.gitignore.io/api/node,macos,windows,eclipse,intellij,webstorm
 
+### Webpack bundle ###
+dist/
+
 ### Eclipse ###
 
 .metadata

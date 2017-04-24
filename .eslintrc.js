@@ -7,5 +7,8 @@ module.exports = {
         "no-tabs": "off",
         "indent": ["error", "tab"],
         "quotes": ["error", "double"]
+    },
+    "env": {
+        "browser": true
     }
 };
