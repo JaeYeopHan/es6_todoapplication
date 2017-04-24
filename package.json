@@ -9,6 +9,10 @@
     "dev": "webpack-dev-server --hot",
     "build": "webpack"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JaeYeopHan/es6_todoapplication"
+  },
   "main": "index.js",
   "author": "Jbee",
   "license": "MIT",
