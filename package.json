@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "TODO Applicatioin ECMAScript6 version",
   "scripts": {
-    "test": "mocha --require babel-register",
+    "test": "mocha -w --require babel-register",
     "eslint": "eslint .eslintrc.js src/",
     "start": "webpack-dev-server --open",
     "dev": "webpack-dev-server --hot",
