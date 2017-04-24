@@ -1,0 +1,8 @@
+{
+  "name": "es6_todo_app",
+  "version": "1.0.0",
+  "description": "TODO Applicatioin ECMAScript6 version",
+  "main": "index.js",
+  "author": "Jbee",
+  "license": "MIT"
+}
