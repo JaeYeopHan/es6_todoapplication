@@ -25,3 +25,5 @@ for dev
 ```bash
 npm run dev
 ```
+
+You can work in `src/entry.js` and test it through the file `test/entry.spec.js`.
