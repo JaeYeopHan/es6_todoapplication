@@ -7,6 +7,10 @@ module.exports = {
         path: path.resolve(__dirname, "dist"),
         filename: "bundle.js"
     },
+    devServer: {
+        inline: true
+    },
+    devtool: "eval-source-map",
     module: {
         rules: [
             {
