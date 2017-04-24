@@ -1,6 +1,6 @@
 # Todo Application with ECMAScript6
 
-## Intall
+## Install
 ```bash
 # If your local does not have a yarn installed
 $ brew install yarn
@@ -13,7 +13,7 @@ $ yarn install
 ```
 ---
 
-## Test
+## Test Running
 ```bash
 $ npm test
 ```
