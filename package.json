@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/JaeYeopHan/es6_todoapplication"
+    "URL": "https://github.com/JaeYeopHan/es6_todoapplication"
   },
   "main": "index.js",
   "author": "Jbee",
