@@ -1,84 +1,47 @@
-const get = url => {
-    return new Promise((res, rej) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", url, true);
-        xhr.responseType = "json";
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    res(xhr.response);
-                } else {
-                    rej(new Error(xhr.status));
+export default (function() {
+    const _createPromiseWithXHR = (method, url, data = null) => {
+        return new Promise((res, rej) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open(method, url, true);
+            xhr.responseType = "json";
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        res(xhr.response);
+                    } else {
+                        rej(new Error(xhr.status));
+                    }
                 }
-            }
-        };
-        xhr.send();
-    });
-};
+            };
+            xhr.send(data);
+        });
+    };
 
-const post = (url, data) => {
-    return new Promise((res, rej) => {
-        const params = typeof data == 'string' ? data : Object.keys(data).map(
-            function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
-        ).join('&');
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", url, true);
-        xhr.responseType = "json";
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    res(xhr.response);
-                } else {
-                    rej(new Error(xhr.status));
-                }
-            }
-        };
-        xhr.send(params);
-    });
-};
+    const _createParam = (data) => {
+        return (typeof data === "string")
+            ? data
+            : Object.keys(data)
+            .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`)
+            .join("&");
+    };
 
-const put = (url, data) => {
-    return new Promise((res, rej) => {
-        const params = typeof data == 'string' ? data : Object.keys(data).map(
-            function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
-        ).join('&');
-        const xhr = new XMLHttpRequest();
-        xhr.open("PUT", url, true);
-        xhr.responseType = "json";
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    res(xhr.response);
-                } else {
-                    rej(new Error(xhr.status));
-                }
-            }
-        };
-        xhr.send(params);
-    });
-};
+    const get = url => {
+        return _createPromiseWithXHR("GET", url);
+    };
 
-const del = (url) => {
-    return new Promise((res, rej) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open("DELETE", url, true);
-        xhr.responseType = "json";
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    res(xhr.response);
-                } else {
-                    rej(new Error(xhr.status));
-                }
-            }
-        };
-        xhr.send();
-    });
-};
+    const post = (url, data) => {
+        return _createPromiseWithXHR("POST", url, _createParam(data));
+    };
 
-export const ajaxApi = {
-    get, post, put, del
-};
+    const put = (url, data) => {
+        return _createPromiseWithXHR("PUT", url, _createParam(data));
+    };
+
+    const del = (url) => {
+        return _createPromiseWithXHR("DELETE", url);
+    };
+    return {
+        get, post, put, del
+    }
+})();
