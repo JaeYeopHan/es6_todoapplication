@@ -1,6 +1,11 @@
 import * as log from "loglevel";
+import Observer from "./observer";
 
 export default class todoApi {
+    constructor() {
+        this.observer = new Observer()
+    }
+
     removeTodo(classList, todo) {
         if (classList.contains("destroy")) {
             todo.remove();
@@ -14,6 +19,7 @@ export default class todoApi {
     }
 
     merge(fragment, todos) {
+        this.observer.init(todos);
         todos.forEach(todo => fragment.appendChild(this.createTemplate(todo)));
         return fragment;
     }
@@ -39,6 +45,7 @@ export default class todoApi {
 
     addTodo(template, clear = () => log.info("add task success")) {
         document.querySelector(".todo-list").appendChild(template);
+        this.observer.observe();
         clear();
     }
 }
