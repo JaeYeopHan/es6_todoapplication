@@ -6,15 +6,15 @@ export default class Status {
         this.COMPLETED_CONDITION = "#/completed";
 
         this.filtering = {
-            [this.ALL_CONDITION] : todosClassList => {
+            [this.ALL_CONDITION]: todosClassList => {
                 todosClassList.remove("show-active");
                 todosClassList.remove("show-completed");
             },
-            [this.ACTIVE_CONDITION] : todosClassList => {
+            [this.ACTIVE_CONDITION]: todosClassList => {
                 todosClassList.add("show-active");
                 todosClassList.remove("show-completed");
             },
-            [this.COMPLETED_CONDITION] : todosClassList => {
+            [this.COMPLETED_CONDITION]: todosClassList => {
                 todosClassList.add("show-completed");
                 todosClassList.remove("show-active");
             }
@@ -34,9 +34,9 @@ export default class Status {
         e.preventDefault();
         const selectedFilter = e.target;
         if (selectedFilter.classList.contains("selected")) {
-            return ;
+            return;
         }
-        this._deleteSelected(e.currentTarget.children, function() {
+        this._deleteSelected(e.currentTarget.children, function () {
             selectedFilter.classList.add("selected");
         });
         const option = selectedFilter.getAttribute("href");
