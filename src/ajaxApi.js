@@ -26,22 +26,10 @@ export default (function() {
             .join("&");
     };
 
-    const get = url => {
-        return _createPromiseWithXHR("GET", url);
-    };
+    const get = url => _createPromiseWithXHR("GET", url);
+    const post = (url, data) => _createPromiseWithXHR("POST", url, _createParam(data));
+    const put = (url, data) => _createPromiseWithXHR("PUT", url, _createParam(data));
+    const del = (url) => _createPromiseWithXHR("DELETE", url);
 
-    const post = (url, data) => {
-        return _createPromiseWithXHR("POST", url, _createParam(data));
-    };
-
-    const put = (url, data) => {
-        return _createPromiseWithXHR("PUT", url, _createParam(data));
-    };
-
-    const del = (url) => {
-        return _createPromiseWithXHR("DELETE", url);
-    };
-    return {
-        get, post, put, del
-    }
+    return { get, post, put, del };
 })();

@@ -6,6 +6,7 @@ import todoApi from './todoApi';
 export default class Todo {
     constructor() {
         this.URL = "http://128.199.76.9:8002/jbee/todo/";
+        this.ENTER_KEY = 13;
         this.NOT_COMPLETED = 0;
         this.COMPLETED = 1;
         this.dom = new todoApi();
@@ -26,47 +27,57 @@ export default class Todo {
     }
 
     _getFetch() {
-        return ajax.get(this.URL)
-            .then((todos) => this.dom.addTodo(this.dom.merge(document.createDocumentFragment(), todos)))
-            .catch((e) => log.error("error: " + e));
+        return ajax.get(this.URL).then((todos) => {
+            this.dom.addTodo(this.dom.merge(document.createDocumentFragment(), todos));
+        }).catch((e) => {
+            log.error("error: " + e);
+        });
     }
 
     _remove(e) {
-        const id = e.target.parentNode.parentNode.getAttribute("data-id");
+        const todoElm = e.target.parentNode.parentNode;
+        const id = todoElm.getAttribute("data-id");
         if (e.target.classList.contains("destroy")) {
-            return ajax.del(this.URL + id)
-                        .then(() => this.dom.removeTodo(e.target.classList, e.target.parentNode.parentNode))
-                        .catch((e) => log.error("error: ", e));
+            return ajax.del(this.URL + id).then(() => {
+                this.dom.removeTodo(e.target.classList, todoElm);
+            }).catch((e) => {
+                log.error("error: ", e);
+            });
         }
     }
 
     _update(e) {
         const todoElm = e.target.parentNode.parentNode;
         const id = todoElm.getAttribute("data-id");
-        let data = {
+        const data = {
             "completed": todoElm.classList.contains("completed")
                 ? this.NOT_COMPLETED : this.COMPLETED
         };
 
-        return ajax.put(this.URL + id, data)
-                    .then(() => this.dom.updateTodoStatus(e.target.classList, todoElm.classList))
-                    .catch((e) => log.error("error: ", e));
+        return ajax.put(this.URL + id, data).then(() => {
+            this.dom.updateTodoStatus(e.target.classList, todoElm.classList);
+        }).catch((e) => {
+            log.error("error: ", e);
+        });
     }
 
     _add(e) {
         const value = e.target.value;
         if (this._isCorrectInput(e)) {
-            return ajax.post(this.URL, {"todo": value})
-                        .then((res) => this.dom.addTodo(this.dom.createTemplate({
-                            id: res.insertId,
-                            todo: value,
-                            completed: this.NOT_COMPLETED
-                        }), () => e.target.value = ""))
-                        .catch((e) => log.error("error: ", e));
+            return;
         }
+        return ajax.post(this.URL, {"todo": value}).then((res) => {
+            this.dom.addTodo(this.dom.createTemplate({
+                id: res.insertId,
+                todo: value,
+                completed: this.NOT_COMPLETED
+            }), () => e.target.value = "");
+        }).catch((e) => {
+            log.error("error: ", e);
+        });
     }
 
     _isCorrectInput(e) {
-        return e.which === 13 && e.target.value.trim() !== "";
+        return e.which === this.ENTER_KEY && e.target.value.trim() !== "";
     }
 }
