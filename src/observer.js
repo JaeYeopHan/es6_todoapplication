@@ -13,10 +13,6 @@ export default class Observer {
             this.counter.textContent = this.todoList.children.length;
         });
 
-        const config = {
-            childList: true,
-        };
-
-        observer.observe(this.todoList, config);
+        observer.observe(this.todoList, { childList: true });
     }
 }

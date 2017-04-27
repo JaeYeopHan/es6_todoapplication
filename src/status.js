@@ -36,7 +36,7 @@ export default class Status {
         if (selectedFilter.classList.contains("selected")) {
             return;
         }
-        this._deleteSelected(e.currentTarget.children, function () {
+        this._deleteSelected(e.currentTarget.children, () => {
             selectedFilter.classList.add("selected");
         });
         const option = selectedFilter.getAttribute("href");
