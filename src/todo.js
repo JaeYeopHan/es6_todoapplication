@@ -1,6 +1,6 @@
 import * as log from "loglevel";
 
-import ajax from './ajaxApi';
+import * as ajax from './ajaxApi';
 import todoApi from './todoApi';
 
 export default class Todo {
