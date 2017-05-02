@@ -24,20 +24,20 @@ export default class todoApi {
         return fragment;
     }
 
-    createTemplate(data) {
+    createTemplate({id, todo, completed}) {
         let li = document.createElement("li");
         let checked;
-        li.setAttribute("data-id", data.id);
-        if (data.completed) {
+        li.setAttribute("data-id", id);
+        if (completed) {
             li.classList.add("completed");
             checked = "checked";
         }
         const template = `
 			<div class="view">
 				<input type="checkbox" class="toggle" ${checked}/>
-				<label>${data.todo}</label>
+				<label>${todo}</label>
 				<button class="destroy"></button>
-				<input class="edit" value="${data.todo}"/>
+				<input class="edit" value="${todo}"/>
 			</div>`;
         li.innerHTML = template;
         return li;

@@ -34,20 +34,20 @@ export default class Todo {
         });
     }
 
-    _remove(e) {
-        const todoElm = e.target.parentNode.parentNode;
+    _remove({target}) {
+        const todoElm = target.parentNode.parentNode;
         const id = todoElm.getAttribute("data-id");
-        if (e.target.classList.contains("destroy")) {
+        if (target.classList.contains("destroy")) {
             return ajax.del(this.URL + id).then(() => {
-                this.dom.removeTodo(e.target.classList, todoElm);
+                this.dom.removeTodo(target.classList, todoElm);
             }).catch((e) => {
                 log.error("error: ", e);
             });
         }
     }
 
-    _update(e) {
-        const todoElm = e.target.parentNode.parentNode;
+    _update({target}) {
+        const todoElm = target.parentNode.parentNode;
         const id = todoElm.getAttribute("data-id");
         const data = {
             "completed": todoElm.classList.contains("completed")
@@ -55,29 +55,29 @@ export default class Todo {
         };
 
         return ajax.put(this.URL + id, data).then(() => {
-            this.dom.updateTodoStatus(e.target.classList, todoElm.classList);
+            this.dom.updateTodoStatus(target.classList, todoElm.classList);
         }).catch((e) => {
             log.error("error: ", e);
         });
     }
 
-    _add(e) {
-        const value = e.target.value;
-        if (this._isCorrectInput(e)) {
+    _add({target, which}) {
+        const todo = target.value;
+        if (!this._isCorrectInput(which, target)) {
             return;
         }
-        return ajax.post(this.URL, {"todo": value}).then((res) => {
+        return ajax.post(this.URL, {todo}).then((res) => {
             this.dom.addTodo(this.dom.createTemplate({
                 id: res.insertId,
-                todo: value,
+                todo,
                 completed: this.NOT_COMPLETED
-            }), () => e.target.value = "");
+            }), () => target.value = "");
         }).catch((e) => {
             log.error("error: ", e);
         });
     }
 
-    _isCorrectInput(e) {
-        return e.which === this.ENTER_KEY && e.target.value.trim() !== "";
+    _isCorrectInput(which, target) {
+        return which === this.ENTER_KEY && target.value.trim() !== "";
     }
 }
