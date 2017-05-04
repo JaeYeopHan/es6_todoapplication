@@ -19,6 +19,7 @@
   "license": "MIT",
   "devDependencies": {
     "chai": "^3.5.0",
+    "css-loader": "^0.28.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.1.3",
     "eslint-loader": "^1.7.1",
@@ -29,15 +30,16 @@
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-webpack": "^2.0.3",
     "mocha": "^3.2.0",
+    "style-loader": "^0.17.0",
     "webpack-dev-server": "^2.4.4",
     "webpack-livereload-plugin": "^0.11.0"
   },
   "dependencies": {
-    "webpack": "^2.4.1",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.4.0",
     "babel-register": "^6.24.1",
-    "loglevel": "^1.4.1"
+    "loglevel": "^1.4.1",
+    "webpack": "^2.4.1"
   }
 }
