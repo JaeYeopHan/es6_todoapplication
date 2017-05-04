@@ -393,3 +393,15 @@ html .clear-completed:active {
     bottom: 10px;
   }
 }
+
+.show-active > .completed {
+  display: none;
+}
+
+.show-completed > li {
+  display: none;
+}
+
+.show-completed > .completed {
+  display: block;
+}
